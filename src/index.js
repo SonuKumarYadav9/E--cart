@@ -1,6 +1,6 @@
 const express = require('express')
 const route = require('./routes/routes.js')
-const { default: mongoose } = require('mongoose')
+const mongoose = require('mongoose')
 const app = express()
 // const multer = require("multer")
 
