@@ -19,6 +19,6 @@ const getUser = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log({ status: false, msg: error.message });
+    res.status(500).send({ status: false, msg: error.message });
   }
 };
