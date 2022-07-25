@@ -71,3 +71,5 @@ const getUser = async (req, res) => {
         res.status(500).send({status:false,msg:error.message})
     }
  }
+
+ module.exports={getUser,userLogin}
