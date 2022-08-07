@@ -9,11 +9,12 @@ app.use(express.urlencoded({ extended: true }))
 app.use(multer().any())
 
 
-mongoose.connect("mongodb+srv://SonuKumarYadav9:Sk957079%40@cluster0.9bcnwnf.mongodb.net/Project-5", {
+mongoose.connect("mongodb+srv://AshutoshGupta:ashutosh54264850@cluster0.ukus0.mongodb.net/group68Database", {
     useNewUrlParser: true
 })
     .then(() => console.log("MongoDb is connected"))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
+    
 
 app.use('/', route)
 
