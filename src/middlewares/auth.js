@@ -22,10 +22,11 @@ const authentication = async function (req, res, next) {
         message: " Please provide Bearer Token or invalid token",
       });
     }
+
     // To verify the token, we are using error handling callback function
     jwt.verify(bearerToken, "functionup-project-5", function (err, decoded) {
       if (err) {
-        return res.status(403).send({
+        return res.status(401).send({
           status: false,
           message: " Invalid token , UnAuthorised",
         });
@@ -78,6 +79,5 @@ const authorization = async function (req, res, next) {
 
 
 module.exports = { authentication, authorization };
-//==============================================Authorization=============================//
 
 

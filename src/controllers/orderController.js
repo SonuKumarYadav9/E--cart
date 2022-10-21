@@ -10,9 +10,12 @@ const isValidRequestBody = (data) => {
   return true;
 };
 
+
 const isValidObjectId = (value) => {
   return mongoose.Types.ObjectId.isValid(value);
 };
+
+
 const isValid = (value) => {
   if (typeof value == "undefined" || value == null) return false;
   if (typeof value == "string" && value.trim().length === 0) return false;
@@ -25,6 +28,7 @@ const isValidStatus = function (status) {
   let state = ['pending','completed','cancelled'];
   return state.includes(status);
 }
+
 
 const createOrder = async function (req, res) {
   try {

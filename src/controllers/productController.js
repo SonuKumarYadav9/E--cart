@@ -77,17 +77,17 @@ const createProduct = async function (req, res) {
           message: "The title is not unique. Please enter a unique title.",
         });
 
-    if (!isValid(description))
-      return res
-        .status(400)
-        .send({
-          status: false,
-          message: "The description is not present or it is not valid.",
-        });
-    if (!descriptionRegex.test(description))
-      return res
-        .status(400)
-        .send({ status: false, message: "The description is not valid." });
+    // if (!isValid(description))
+    //   return res
+    //     .status(400)
+    //     .send({
+    //       status: false,
+    //       message: "The description is not present or it is not valid.",
+    //     });
+    // if ((description))
+    //   return res
+    //     .status(400)
+    //     .send({ status: false, message: "The description is not valid." });
 
     if (!isValid(price))
       return res

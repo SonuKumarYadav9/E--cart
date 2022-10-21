@@ -31,8 +31,9 @@ const isValid = (value) => {
 const createCart = async (req, res) => {
   try {
     let data = req.body;
-    console.log(data);
+    // console.log(data);
     let userLoggedIn = req.tokenData.userId;
+
     if (Object.keys(data).length == 0)
       return res
         .status(400)
@@ -65,7 +66,7 @@ const createCart = async (req, res) => {
     }
 
     quantity = Number(quantity);
-    console.log(quantity);
+    // console.log(quantity);
     if (typeof quantity !== "number")
       return res
         .status(400)
@@ -131,8 +132,7 @@ const createCart = async (req, res) => {
       }
       let productidincart = validCart.items;
       //console.log(productidincart)
-      let uptotal =
-        validCart.totalPrice + validProduct.price * Number(quantity);
+      let uptotal = validCart.totalPrice + validProduct.price * Number(quantity);
       let proId = validProduct._id.toString();
       for (let i = 0; i < productidincart.length; i++) {
         let productfromitem = productidincart[i].productId.toString();
@@ -144,19 +144,18 @@ const createCart = async (req, res) => {
           let oldQuant = productidincart[i].quantity; // adding
           let newquant = oldQuant + quantity;
           productidincart[i].quantity = newquant;
-          validCart.totalPrice = uptotal;
+          validCart.totalPrice = uptotal;                                    //if already we are adding 
           await validCart.save();
-
-          console.log(validCart);
-
+           // console.log(validCart);
           return res
             .status(201)
             .send({ status: true, message: "Success", data: validCart });
         }
-      }
-      //adds new product
-      validCart.items.push({
-        productId: productId,
+      };
+
+      //adds new product                                                   // adding new product in cart
+      validCart.items.push({                                                //allready 1  // add second2
+        productId: productId,                                                     //total price //totalitem
         quantity: Number(quantity),
       });
       let total = validCart.totalPrice + validProduct.price * Number(quantity);
@@ -170,7 +169,7 @@ const createCart = async (req, res) => {
     }
 
     // 1st time cart
-    let calprice = validProduct.price * Number(quantity);
+    let calprice = validProduct.price * Number(quantity);    //100*2==00
     let obj = {
       userId: userId,
       items: [
@@ -182,7 +181,7 @@ const createCart = async (req, res) => {
       totalPrice: calprice,
     };
     obj["totalItems"] = obj.items.length;
-    console.log(obj)
+    // console.log(obj)
     let result = await cartModel.create(obj);
     
     return res
@@ -196,13 +195,7 @@ const createCart = async (req, res) => {
   
 };
 
-
-
-
-
 /*********************GET CART*******************/
-
-
 
 
 const getCart = async function (req, res) {
@@ -366,7 +359,7 @@ const updateCart = async function (req, res) {
 
       
 
-          //checking if product exist in cart
+                                                       //checking if product exist in cart
           let  productExistInCart=0
           let qty=0
            for(let i in isCartExist.items){
@@ -384,7 +377,8 @@ const updateCart = async function (req, res) {
              "items.productId":productId,
              userId:userId        
            }
-     if (removeProduct == 0||qty==1) {
+
+     if (removeProduct == 0) {
            let update={
           $pull:{items:{productId:productId}},
           $inc: { totalPrice: - 1*qty*priceOfProduct ,totalItems:-1}
@@ -400,7 +394,7 @@ const updateCart = async function (req, res) {
          
           let update = {
           $inc: {totalPrice:-1*priceOfProduct,
-          "items.$.quantity":-1 }
+          "items.quantity":-1 }
           }
           productExistInCart = await cartModel.findOneAndUpdate(filter, update, { new: true })
           

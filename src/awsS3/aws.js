@@ -12,7 +12,7 @@ let uploadFile = async(file) => {
         let s3 = new aws.S3({ apiVersion: "2006-03-01" })
 
         var uploadParams = {
-            ACL: "public-read",
+            ACL: "public-read",         // access control list
             Bucket: "classroom-training-bucket",
             Key: "Sonu/" + file.originalname,
             Body: file.buffer
@@ -24,7 +24,17 @@ let uploadFile = async(file) => {
 
             return resolve(data.Location)
         })
-    })
+    })      
 }
+// profileImage = await uploadFile(files);
+
+//PROMISE;-It is a object which represents intermediate state of operation which wiil guaranty us that 
+//it will give us some result in future or (it will be colpleted in future)
+
+// CALLBACK ;-A "callbak" function is function that is passed as an agument for 
+// another function and to be called back at later time
+
+
+//First class function ;- when function in that language are treated as like any other variable
 
 module.exports = { uploadFile }

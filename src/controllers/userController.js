@@ -140,6 +140,7 @@ const createUser = async function (req, res) {
         });
 
     data.password = await bcrypt.hash(password, saltRounds); 
+    
     if (!address)
       return res
         .status(400)
@@ -333,6 +334,7 @@ const userLogin = async function (req, res) {
         });
 
     let checkPassword = await bcrypt.compare(password, user.password);
+
     if (!checkPassword)
       return res
         .status(400)
@@ -403,20 +405,11 @@ const updateUser = async (req, res) => {
         .status(400)
         .send({ status: false, message: "Please provide valid ID" });
     }
-
-    // if (userId != userLoggedIn) {
-    //   return res
-    //     .status(403)
-    //     .send({ status: false, msg: "Error, authorization failed" });
-    // }
-
-    const data = req.body; //JSON.parse(JSON.stringify(req.body))
+    const data = req.body;
     const files = req.files;
     const { password } = data;
     const updateUserData = {};
-    // if(!validator.isValidObject(data)){
-    //     return res.status(400).send ({status:false, message :"Please provide body"})
-    // }
+
     const isUserExist = await userModel.findById(userId);
     if (!isUserExist) {
       return res.status(404).send({ status: false, message: "user not found" });
@@ -425,7 +418,7 @@ const updateUser = async (req, res) => {
       return res
         .status(400)
         .send({ status: false, message: "can not update user id" });
-    }
+    } 
     if (data.fname) {
       if (!validator.isValid(data.fname)) {
         return res
@@ -492,7 +485,7 @@ const updateUser = async (req, res) => {
       updateUserData.profileImage = link;
     }
     if (password) {
-      const hash = await bcrypt.hash(password, saltRounds);
+      const hash = await bcrypt.hash(password, saltRounds);  //
       updateUserData.password = hash;
     }
 
