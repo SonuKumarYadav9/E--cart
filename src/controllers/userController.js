@@ -290,6 +290,7 @@ const createUser = async function (req, res) {
         data: profileData,
       });
   } catch (error) {
+    console.log(error)
     return res.status(500).send({ status: false, message: error.message });
   }
 };
